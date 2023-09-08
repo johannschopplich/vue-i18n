@@ -24,6 +24,12 @@ export function createI18n(config: I18nConfig): I18nInstance {
       return ''
     }
 
+    if (!key) {
+      if (logLevel === 'warn')
+        console.warn(CONSOLE_PREFIX, `Message "${key}" is empty`)
+      return ''
+    }
+
     try {
       return getLocalizedMessage(key.split('.'), messages[locale.value], params)
     }
