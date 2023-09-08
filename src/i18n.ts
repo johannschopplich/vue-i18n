@@ -26,7 +26,7 @@ export function createI18n(config: I18nConfig): I18nInstance {
 
     if (!key) {
       if (logLevel === 'warn')
-        console.warn(CONSOLE_PREFIX, `Message "${key}" is empty`)
+        console.warn(CONSOLE_PREFIX, 'Message key is empty')
       return ''
     }
 
