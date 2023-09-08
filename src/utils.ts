@@ -56,3 +56,35 @@ export function getLocalizedMessage(
 
   return getLocalizedMessage(chain.slice(1), message, params, originalChain)
 }
+
+export function klona<T>(val: T): T {
+  if (Array.isArray(val)) {
+    const out = Array.from({ length: val.length })
+    for (let i = 0; i < val.length; i++) {
+      const tmp = val[i]
+      out[i] = tmp && typeof tmp === 'object' ? klona(tmp) : tmp
+    }
+    return out as T
+  }
+
+  if (Object.prototype.toString.call(val) === '[object Object]') {
+    const out = Object.create(null)
+    for (const [k, v] of Object.entries(val as Record<string, unknown>)) {
+      if (k === '__proto__') {
+        Object.defineProperty(out, k, {
+          value: klona(v),
+          configurable: true,
+          enumerable: true,
+          writable: true,
+        })
+      }
+      else {
+        out[k] = v && typeof v === 'object' ? klona(v) : v
+      }
+    }
+
+    return out as T
+  }
+
+  return val
+}

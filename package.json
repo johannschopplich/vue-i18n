@@ -41,9 +41,6 @@
   "peerDependencies": {
     "vue": "^3"
   },
-  "dependencies": {
-    "klona": "^2.0.6"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.41.0",
     "@types/node": "^20.5.9",

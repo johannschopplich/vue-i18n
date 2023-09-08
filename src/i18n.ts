@@ -1,7 +1,6 @@
 import { computed, reactive, ref } from 'vue'
 import type { App, InjectionKey } from 'vue'
-import { klona } from 'klona/json'
-import { getLocalizedMessage } from './utils'
+import { getLocalizedMessage, klona } from './utils'
 import type { I18nConfig, I18nInstance, UseI18n } from './types'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
