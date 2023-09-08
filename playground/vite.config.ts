@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~/': `${resolve(currentDir, 'src')}/`,
-      '@leanera/vue-i18n': resolve(currentDir, '../src/index.ts'),
+      '@byjohann/vue-i18n': resolve(currentDir, '../src/index.ts'),
     },
   },
 
@@ -16,7 +16,7 @@ export default defineConfig({
 
   optimizeDeps: {
     exclude: [
-      '@leanera/vue-i18n',
+      '@byjohann/vue-i18n',
     ],
   },
 })

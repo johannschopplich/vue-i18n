@@ -1,6 +1,6 @@
-# @leanera/vue-i18n
+# @byjohann/vue-i18n
 
-[![npm version](https://img.shields.io/npm/v/@leanera/vue-i18n?color=a1b858&label=)](https://www.npmjs.com/package/@leanera/vue-i18n)
+[![npm version](https://img.shields.io/npm/v/@byjohann/vue-i18n?color=a1b858&label=)](https://www.npmjs.com/package/@byjohann/vue-i18n)
 
 > Lightweight internationalization plugin for Vue.
 
@@ -14,21 +14,21 @@
 
 ```bash
 # pnpm
-pnpm add @leanera/vue-i18n
+pnpm add @byjohann/vue-i18n
 
 # npm
-npm i @leanera/vue-i18n
+npm i @byjohann/vue-i18n
 ```
 
 ## Usage
 
 > [📖 Check out the playground](./playground/)
 
-To make use of `@leanera/vue-i18n` in your components, initialize the `i18n` instance:
+To make use of `@byjohann/vue-i18n` in your components, initialize the `i18n` instance:
 
 ```ts
 // plugins/i18n.ts
-import { createI18n } from '@leanera/vue-i18n'
+import { createI18n } from '@byjohann/vue-i18n'
 
 const i18n = createI18n({
   defaultLocale: 'en',
@@ -206,7 +206,7 @@ interface UseI18n {
 **Example**
 
 ```ts
-import { useI18n } from '@leanera/vue-i18n'
+import { useI18n } from '@byjohann/vue-i18n'
 
 const i18n = useI18n()
 const {
@@ -232,6 +232,8 @@ console.log(t('foo').value) // `bar`
 
 ## License
 
-[MIT](./LICENSE) License © 2022-2023 [LeanERA GmbH](https://github.com/leanera) & [Johann Schopplich](https://github.com/johannschopplich)
+[MIT](./LICENSE) License © 2022-PRESENT [Johann Schopplich](https://github.com/johannschopplich)
+
+[MIT](./LICENSE) License © 2022-2023 [LeanERA GmbH](https://github.com/leanera)
 
 [MIT](./LICENSE) License © 2020 [webkong](https://github.com/webkong)

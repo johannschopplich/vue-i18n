@@ -1,17 +1,17 @@
 {
-  "name": "@leanera/vue-i18n",
+  "name": "@byjohann/vue-i18n",
   "type": "module",
   "version": "0.5.0",
   "packageManager": "pnpm@8.7.4",
   "description": "Lightweight internationalization plugin for Vue",
-  "author": "LeanERA GmbH <https://github.com/leanera>",
+  "author": "Johann Schopplich <pkg@johannschopplich.com>",
   "license": "MIT",
-  "homepage": "https://github.com/leanera/vue-i18n#readme",
+  "homepage": "https://github.com/johannschopplich/vue-i18n#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leanera/vue-i18n.git"
+    "url": "git+https://github.com/johannschopplich/vue-i18n.git"
   },
-  "bugs": "https://github.com/leanera/vue-i18n/issues",
+  "bugs": "https://github.com/johannschopplich/vue-i18n/issues",
   "keywords": [
     "vue",
     "i18n",

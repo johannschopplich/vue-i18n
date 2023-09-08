@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from '@leanera/vue-i18n'
+import { useI18n } from '@byjohann/vue-i18n'
 
 const i18n = useI18n()
 const { locale, messages, setLocale } = i18n
@@ -29,6 +29,6 @@ function changeMessages() {
   <!-- Object -->
   <p>{{ $t("object.foo") }}</p>
   <!-- Parse -->
-  <p>{{ $t("parse", { name: "LeanERA" }) }}</p>
-  <p>{{ $t("parses.foo", { name: "LeanERA" }) }}</p>
+  <p>{{ $t("parse", { name: "Nuxtr" }) }}</p>
+  <p>{{ $t("parses.foo", { name: "Nuxtr" }) }}</p>
 </template>

@@ -5,7 +5,7 @@
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
-      "@leanera/vue-i18n": ["./src/index.ts"]
+      "@byjohann/vue-i18n": ["./src/index.ts"]
     },
     "skipLibCheck": true,
 

@@ -6,7 +6,7 @@ export function getLocalizedMessage(
 ): string {
   const key = chain[0]
 
-  if (originalChain === undefined)
+  if (!originalChain)
     originalChain = [...chain]
 
   if (key.includes('[')) {
