@@ -4,9 +4,11 @@
 
 > Lightweight internationalization plugin for Vue.
 
+Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.dev) seems to be the de-facto standard? Well, I was looking for a lightweight solution that is easy to use and does not require any additional dependencies. I also wanted to learn, how the most basic i18n implementation could look like.
+
 ## Key Features
 
-- 🔃 Reactive locale messages – perfect for lazily added messages
+- 🔃 Reactive translations with `t()`
 - 🗜 Composable usage with [`useI18n`](#usei18n)
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
 - 🌬️ Zero dependencies
@@ -65,13 +67,13 @@ const i18n = useI18n()
 const { locale, t, setLocale } = i18n
 
 locale.value // `en`
-t('intro', { name: 'John' }) // `Welcome, John`
+t('intro', { name: 'World' }) // `Welcome, World`
 
 // Set new locale
 setLocale('de')
 
 locale.value // `de`
-t('intro', { name: 'John' }) // `Willkommen, John`
+t('intro', { name: 'World' }) // `Willkommen, World`
 ```
 
 ## Message Formatting
@@ -193,13 +195,13 @@ Instead of `$t` and `$i18n` you can import the `useI18n` composable to access th
 ```ts
 function useI18n(): UseI18n
 
-interface UseI18n {
-  defaultLocale: string
-  locale: ComputedRef<string>
-  locales: readonly string[]
-  messages: LocaleMessages
+interface UseI18n<Locale extends string = string> {
+  defaultLocale: Locale
+  locale: ComputedRef<Locale>
+  locales: readonly Locale[]
+  messages: LocaleMessages<Locale>
   t: (key: string, params?: Record<string, any>) => string
-  setLocale: (locale: string) => void
+  setLocale: (locale: Locale) => void
   getLocale: () => string
 }
 ```
