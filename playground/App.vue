@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import { useI18n } from '@byjohann/vue-i18n'
 
-const { locale, setLocale, t } = useI18n()
+const { locale, setLocale, messages, t } = useI18n()
+
+// Add custom locales at runtime
+messages.fr = {
+  menu: ['Démarrer'],
+  object: {
+    foo: 'bar',
+  },
+  parse: 'Bienvenue chez {name}',
+  parses: {
+    foo: 'Bienvenue chez {name}',
+  },
+  test: 'Test',
+}
 
 function switchLocale() {
   setLocale(locale.value === 'en' ? 'de' : 'en')

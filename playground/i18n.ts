@@ -9,7 +9,7 @@ const messages = Object.fromEntries(
 
 const i18n = createI18n({
   defaultLocale: 'de',
-  locales: Object.keys(messages),
+  locales: [...Object.keys(messages), 'fr'],
   messages,
 })
 

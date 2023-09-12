@@ -8,7 +8,7 @@ Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.
 
 ## Key Features
 
-- 🔃 Reactive translations with `t()`
+- 🔃 Lazily add new messages
 - 🗜 Composable usage with [`useI18n`](#usei18n)
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
 - 🌬️ Zero dependencies
