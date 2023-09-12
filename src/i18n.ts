@@ -1,6 +1,6 @@
 import { computed, reactive, ref } from 'vue'
 import type { App, InjectionKey } from 'vue'
-import { getLocalizedMessage, klona } from './utils'
+import { getCachedLocalizedMessage, klona } from './utils'
 import type { I18nConfig, I18nInstance, UseI18n } from './types'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
@@ -30,7 +30,14 @@ export function createI18n(config: I18nConfig): I18nInstance {
     }
 
     try {
-      return getLocalizedMessage(key.split('.'), messages[locale.value], params)
+      return getCachedLocalizedMessage(
+        locale.value,
+        {
+          chain: key.split('.'),
+          messages: messages[locale.value],
+          params,
+        },
+      )
     }
     catch (error) {
       if (logLevel === 'warn')
