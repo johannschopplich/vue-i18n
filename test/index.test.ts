@@ -15,27 +15,45 @@ describe('Recursive retrieve messages', () => {
   }
 
   it('should support general formatting', () => {
-    const result = getLocalizedMessage(['en', 'intro'], messages)
+    const result = getLocalizedMessage({
+      chain: ['en', 'intro'],
+      messages,
+    })
     expect(result).toBe('Hello World')
   })
 
   it('should support named formatting', () => {
-    const result = getLocalizedMessage(['en', 'named'], messages, { msg: 'My' })
+    const result = getLocalizedMessage({
+      chain: ['en', 'named'],
+      messages,
+      params: { msg: 'My' },
+    })
     expect(result).toBe('My World')
   })
 
   it('should support list formatting with an array', () => {
-    const result = getLocalizedMessage(['en', 'list'], messages, ['My'])
+    const result = getLocalizedMessage({
+      chain: ['en', 'list'],
+      messages,
+      params: ['My'],
+    })
     expect(result).toBe('My World')
   })
 
   it('should support list formatting with array-like objects', () => {
-    const result = getLocalizedMessage(['en', 'list'], messages, { 0: 'My' })
+    const result = getLocalizedMessage({
+      chain: ['en', 'list'],
+      messages,
+      params: { 0: 'My' },
+    })
     expect(result).toBe('My World')
   })
 
   it('should support retrieving array items', () => {
-    const result = getLocalizedMessage(['en', 'arrayWithValues[0]'], messages)
+    const result = getLocalizedMessage({
+      chain: ['en', 'arrayWithValues[0]'],
+      messages,
+    })
     expect(result).toBe('Array Item 1')
   })
 
@@ -48,18 +66,28 @@ describe('Recursive retrieve messages', () => {
         ],
       },
     }
-    const result = getLocalizedMessage(['en', 'nestedArray[1]', 'key'], nestedMessages)
+    const result = getLocalizedMessage({
+      chain: ['en', 'nestedArray[1]', 'key'],
+      messages: nestedMessages,
+    })
     expect(result).toBe('Nested Item 2')
   })
 
   it('should throw an error when message is not found', () => {
-    expect(() => getLocalizedMessage(['en', 'nonexistent'], messages)).toThrowError(
+    expect(() => getLocalizedMessage({
+      chain: ['en', 'nonexistent'],
+      messages,
+    })).toThrowError(
       'Message "en.nonexistent" not found',
     )
   })
 
   it('should throw an error when parameter is not found', () => {
-    expect(() => getLocalizedMessage(['en', 'named'], messages, { notFound: 'value' })).toThrowError(
+    expect(() => getLocalizedMessage({
+      chain: ['en', 'named'],
+      messages,
+      params: { notFound: 'value' },
+    })).toThrowError(
       'Parameter "msg" not found',
     )
   })
@@ -74,7 +102,10 @@ describe('Recursive retrieve messages', () => {
         },
       },
     }
-    const result = getLocalizedMessage(['en', 'level1', 'level2', 'level3'], nestedMessages)
+    const result = getLocalizedMessage({
+      chain: ['en', 'level1', 'level2', 'level3'],
+      messages: nestedMessages,
+    })
     expect(result).toBe('Deeply Nested')
   })
 
@@ -84,18 +115,28 @@ describe('Recursive retrieve messages', () => {
         mixed: '{0} {1}, {name}',
       },
     }
-    const result = getLocalizedMessage(['en', 'mixed'], mixedMessages, { 0: 'Hi', 1: 'there', name: 'John' })
-    expect(result).toBe('Hi there, John')
+    const result = getLocalizedMessage({
+      chain: ['en', 'mixed'],
+      messages: mixedMessages,
+      params: { 0: 'Hi', 1: 'there', name: 'World' },
+    })
+    expect(result).toBe('Hi there, World')
   })
 
   it('should throw an error for an invalid array index', () => {
-    expect(() => getLocalizedMessage(['en', 'arrayWithValues[-1]'], messages)).toThrowError(
+    expect(() => getLocalizedMessage({
+      chain: ['en', 'arrayWithValues[-1]'],
+      messages,
+    })).toThrowError(
       'Invalid array index "-1" for message "en.arrayWithValues[-1]"',
     )
   })
 
   it('should throw an error for a missing array key', () => {
-    expect(() => getLocalizedMessage(['en', 'missingArray[0]'], messages)).toThrowError(
+    expect(() => getLocalizedMessage({
+      chain: ['en', 'missingArray[0]'],
+      messages,
+    })).toThrowError(
       'Message "en.missingArray[0]" not found',
     )
   })
