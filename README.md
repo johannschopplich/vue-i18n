@@ -8,8 +8,8 @@ Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.
 
 ## Key Features
 
-- 🗜 Composable usage with [`useI18n`](#usei18n)
 - 🔃 Lazily add new translations at runtime
+- 🗜 Composable usage with [`useI18n`](#usei18n)
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
 - 🌬️ Zero dependencies
 
@@ -176,6 +176,31 @@ List formatting also accepts array-like objects:
 
 </td></tr></table>
 
+## Advanced Usage
+
+### Auto-Load Translations
+
+To automatically load translations, you can use [import.meta.glob](https://vitejs.dev/guide/features.html#glob-import) to load all translation files from a directory.
+
+```ts
+import { createI18n } from '@byjohann/vue-i18n'
+
+// Auto-load translations
+const messages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<Record<string, any>>('./locales/*.json', { eager: true }),
+  ).map(([key, value]) => [key.slice(10, -5), value]),
+)
+
+const i18n = createI18n({
+  defaultLocale: 'en',
+  locales: Object.keys(messages),
+  messages,
+})
+
+export { i18n }
+```
+
 ## API
 
 ### `$t` & `$i18n`
@@ -190,23 +215,7 @@ Example:
 
 ### `useI18n`
 
-To access the current i18n instance, you can import the `useI18n` composable. The `useI18n` composable is available your `<script setup>` blocks or the `setup` function of your components.
-
-**Types**
-
-```ts
-function useI18n(): UseI18n
-
-interface UseI18n<Locale extends string = string> {
-  defaultLocale: Locale
-  locale: ComputedRef<Locale>
-  locales: readonly Locale[]
-  messages: LocaleMessages<Locale>
-  t: (key: string, params?: Record<string, any>) => string
-  setLocale: (locale: Locale) => void
-  getLocale: () => string
-}
-```
+To access the current i18n instance, you can import the `useI18n` composable from `@byjohann/vue-i18n`. The `useI18n` composable is available your `<script setup>` blocks or the `setup` function of your components.
 
 **Example**
 
@@ -226,6 +235,22 @@ const {
 
 console.log(defaultLocale === locale.value) // true
 console.log(t('foo').value) // `bar`
+```
+
+**Type Declaration**
+
+```ts
+function useI18n(): UseI18n
+
+interface UseI18n<Locale extends string = string> {
+  defaultLocale: Locale
+  locale: ComputedRef<Locale>
+  locales: readonly Locale[]
+  messages: LocaleMessages<Locale>
+  t: (key: string, params?: Record<string, any>) => string
+  setLocale: (locale: Locale) => void
+  getLocale: () => string
+}
 ```
 
 ## 💻 Development
