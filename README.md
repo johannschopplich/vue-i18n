@@ -8,8 +8,8 @@ Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.
 
 ## Key Features
 
-- 🔃 Lazily add new messages
 - 🗜 Composable usage with [`useI18n`](#usei18n)
+- 🔃 Lazily add new translations at runtime
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
 - 🌬️ Zero dependencies
 
@@ -21,6 +21,9 @@ pnpm add @byjohann/vue-i18n
 
 # npm
 npm i @byjohann/vue-i18n
+
+# yarn
+yarn add @byjohann/vue-i18n
 ```
 
 ## Usage
@@ -63,8 +66,7 @@ app.mount('#app')
 Done! Now you can retrieve translated keys in your components:
 
 ```ts
-const i18n = useI18n()
-const { locale, t, setLocale } = i18n
+const { locale, t, setLocale } = useI18n()
 
 locale.value // `en`
 t('intro', { name: 'World' }) // `Welcome, World`
@@ -188,7 +190,7 @@ Example:
 
 ### `useI18n`
 
-Instead of `$t` and `$i18n` you can import the `useI18n` composable to access the current i18n instance. The `useI18n` composable is available in the `setup` hook (entry point for Composition API usage).
+To access the current i18n instance, you can import the `useI18n` composable. The `useI18n` composable is available your `<script setup>` blocks or the `setup` function of your components.
 
 **Types**
 

@@ -3,7 +3,7 @@ import { useI18n } from '@byjohann/vue-i18n'
 
 const { locale, setLocale, messages, t } = useI18n()
 
-// Add custom locales at runtime
+// Add custom messages at runtime
 messages.fr = {
   menu: ['Démarrer'],
   object: {
