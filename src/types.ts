@@ -6,15 +6,11 @@ export type LocaleMessageValue<Message = string> =
 
 export declare type LocaleMessageType<T, Message = string> = T extends string
   ? string
-  : T extends () => Promise<infer P>
-    ? LocaleMessageDictionary<P, Message>
-    : T extends (...args: infer Arguments) => any
-      ? (...args: Arguments) => ReturnType<T>
-      : T extends Record<string, unknown>
-        ? LocaleMessageDictionary<T, Message>
-        : T extends Array<T>
-          ? { [K in keyof T]: T[K] }
-          : T
+  : T extends Record<string, unknown>
+    ? LocaleMessageDictionary<T, Message>
+    : T extends Array<T>
+      ? { [K in keyof T]: T[K] }
+      : T
 
 export type LocaleMessageDictionary<T, Message = string> = {
   [K in keyof T]: LocaleMessageType<T[K], Message>;
