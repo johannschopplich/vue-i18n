@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from '@byjohann/vue-i18n'
 
-const { locale, setLocale, messages, t } = useI18n()
+type Locale = 'en' | 'de' | 'fr'
+
+const { locale, setLocale, messages, t } = useI18n<Locale>()
 
 // Add custom messages at runtime
 messages.fr = {

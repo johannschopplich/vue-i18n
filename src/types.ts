@@ -1,4 +1,4 @@
-import type { App, ComputedRef } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export type LocaleMessageValue<Message = string> =
   | LocaleMessageDictionary<any, Message>
@@ -36,10 +36,7 @@ export interface I18nInstance<Locale extends string = string> {
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale>
-  t: (key: string, params?: Record<string, any>) => string
+  t: <const T>(key: T, params?: Record<string, any>) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
-  install(app: App): void
 }
-
-export type UseI18n = Omit<I18nInstance, 'install'>

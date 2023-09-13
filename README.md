@@ -4,13 +4,14 @@
 
 > Lightweight internationalization plugin for Vue.
 
-Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.dev) seems to be the de-facto standard? Well, I was looking for a lightweight solution that is easy to use and does not require any additional dependencies. I also wanted to learn, how the most basic i18n implementation could look like.
+Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.dev) seems to be the de-facto standard? Well, I was looking for a lightweight solution that solely covers the most basic use cases. I also wanted to learn, what a minimalistic i18n library would look like. So I built it.
 
 ## Key Features
 
-- 🔃 Lazily add new translations at runtime
-- 🗜 Composable usage with [`useI18n`](#usei18n)
+- 🗜 [`useI18n`](#usei18n) composable
+- 🔃 Lazily add translations at runtime
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
+- 🦾 [Strongly typed locales](#narrow-locale-types)
 - 🌬️ Zero dependencies
 
 ## Setup
@@ -30,7 +31,7 @@ yarn add @byjohann/vue-i18n
 
 > [📖 Check out the playground](./playground/)
 
-To make use of `@byjohann/vue-i18n` in your components, initialize the `i18n` instance:
+Before you can use `@byjohann/vue-i18n`, you need to initialize the `i18n` instance:
 
 ```ts
 // plugins/i18n.ts
@@ -38,6 +39,7 @@ import { createI18n } from '@byjohann/vue-i18n'
 
 const i18n = createI18n({
   defaultLocale: 'en',
+  locales: ['en', 'de'],
   messages: {
     en: {
       intro: 'Welcome, {name}',
@@ -78,6 +80,22 @@ locale.value // `de`
 t('intro', { name: 'World' }) // `Willkommen, World`
 ```
 
+## Narrow Locale Types
+
+Typed locales will help you to avoid typos and make your code more robust. To narrow the type of your locales, you can create a `Locale` type and pass it to the `useI18n` composable.
+
+Properties like `locale`, `locales` and `messages` will be typed accordingly.
+
+```ts
+type Locale = 'en' | 'de'
+
+const { locale, messages } = useI18n<Locale>()
+
+messages.fr = { // The property "fr" is not assignable to type "LocaleMessages<Locale>".
+  // ...
+}
+```
+
 ## Message Formatting
 
 <table><tr><td width="500px" valign="top">
@@ -97,7 +115,7 @@ const messages = {
 **Template**
 
 ```html
-<p>{{ $t('intro') }}</p>
+<p>{{ t('intro') }}</p>
 ```
 
 **Output**
@@ -123,7 +141,7 @@ const messages = {
 **Template**
 
 ```html
-<p>{{ $t('intro', { msg: 'My' }) }}</p>
+<p>{{ t('intro', { msg: 'My' }) }}</p>
 ```
 
 **Output**
@@ -149,7 +167,7 @@ const messages = {
 **Template**
 
 ```html
-<p>{{ $t('intro', ['My']) }}</p>
+<p>{{ t('intro', ['My']) }}</p>
 ```
 
 **Output**
@@ -165,7 +183,7 @@ List formatting also accepts array-like objects:
 **Template**
 
 ```html
-<p>{{ $t('intro', {'0': 'My'}) }}</p>
+<p>{{ t('intro', {'0': 'My'}) }}</p>
 ```
 
 **Output**
@@ -176,11 +194,9 @@ List formatting also accepts array-like objects:
 
 </td></tr></table>
 
-## Advanced Usage
-
 ### Auto-Load Translations
 
-To automatically load translations, you can use [import.meta.glob](https://vitejs.dev/guide/features.html#glob-import) to load all translation files from a directory.
+To automatically load translations, you can use [the glob import from Vite](https://vitejs.dev/guide/features.html#glob-import) to load all translation files from a directory.
 
 ```ts
 import { createI18n } from '@byjohann/vue-i18n'
@@ -222,7 +238,6 @@ To access the current i18n instance, you can import the `useI18n` composable fro
 ```ts
 import { useI18n } from '@byjohann/vue-i18n'
 
-const i18n = useI18n()
 const {
   defaultLocale,
   locale,
@@ -231,9 +246,9 @@ const {
   t,
   setLocale,
   getLocale
-} = i18n
+} = useI18n()
 
-console.log(defaultLocale === locale.value) // true
+console.log(locales) // `['en', 'de']`
 console.log(t('foo').value) // `bar`
 ```
 
