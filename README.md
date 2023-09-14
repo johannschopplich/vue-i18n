@@ -262,7 +262,7 @@ interface UseI18n<Locale extends string = string> {
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale>
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: unknown[] | Record<string, unknown>) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }

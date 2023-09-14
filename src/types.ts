@@ -36,7 +36,7 @@ export interface I18nInstance<Locale extends string = string> {
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale>
-  t: <const T>(key: T, params?: Record<string, any>) => string
+  t: <const T>(key: T, params?: unknown[] | Record<string, unknown>) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }
