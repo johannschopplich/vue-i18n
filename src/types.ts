@@ -21,7 +21,10 @@ export type LocaleMessage<Message = string> = Record<
   LocaleMessageValue<Message>
 >
 
-export type LocaleMessages<Locale extends string> = Record<Locale, LocaleMessage>
+export type LocaleMessages<
+  Locale extends string,
+  Messages extends Record<string, any> = LocaleMessage,
+> = Record<Locale, Messages>
 
 export interface I18nConfig<Locale extends string = string> {
   defaultLocale?: Locale
@@ -31,11 +34,14 @@ export interface I18nConfig<Locale extends string = string> {
   logLevel?: 'warn' | 'silent'
 }
 
-export interface I18nInstance<Locale extends string = string> {
+export interface I18nInstance<
+  Locale extends string = string,
+  Messages extends Record<string, any> = Record<string, any>,
+> {
   defaultLocale: Locale
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
-  messages: LocaleMessages<Locale>
+  messages: LocaleMessages<Locale, Messages>
   t: <const T>(key: T, params?: unknown[] | Record<string, unknown>) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
