@@ -1,4 +1,5 @@
 import { hash } from 'ohash'
+import type { LocaleMessage } from './types'
 
 const cache = new Map<string, string>()
 
@@ -17,45 +18,45 @@ export function getCachedLocalizedMessage(
   return message
 }
 
-export function getLocalizedMessage(
+export function getLocalizedMessage<Message = string>(
   {
     chain,
-    initialChain,
     messages,
     params,
+    initialChain,
   }: {
     chain: string[]
+    messages: LocaleMessage<Message>
+    params?: (string | number)[] | Record<string, string | number>
     initialChain?: string[]
-    messages: Record<string, string | Record<string, unknown> | unknown[]>
-    params?: unknown[] | Record<string, unknown>
   },
 ): string {
   const key = chain[0]
 
   // Initialize the original key's chain
-  if (!initialChain)
-    initialChain = [...chain]
+  initialChain ||= [...chain]
 
   // Handle array indices
   if (key.includes('[')) {
-    const [objKey, rest] = key.split('[')
-    const num = Number.parseInt(rest.replace(']', ''), 10)
+    const [messageKey, rest] = key.split('[')
+    const index = Number.parseInt(rest.replace(']', ''), 10)
 
-    if (num < 0)
-      throw new Error(`Invalid array index "${num}" for message "${initialChain.join('.')}"`)
+    if (index < 0)
+      throw new Error(`Invalid array index "${index}" for message "${initialChain.join('.')}"`)
 
-    if (!Array.isArray(messages[objKey]) || messages[objKey].length === 0)
+    const record = messages[messageKey]
+
+    if (!Array.isArray(record) || record.length <= index)
       throw new Error(`Message "${initialChain.join('.')}" not found`)
 
-    const message = (messages[objKey] as unknown[])[num]
+    const message = record[index]
 
     if (chain.length === 1)
       return typeof message === 'string' ? message : ''
 
     return getLocalizedMessage({
       chain: chain.slice(1),
-      // @ts-expect-error: We know that message is an object here
-      messages: message,
+      messages: message as LocaleMessage<Message>,
       params,
       initialChain,
     })
@@ -68,31 +69,30 @@ export function getLocalizedMessage(
     throw new Error(`Message "${initialChain.join('.')}" not found`)
 
   if (chain.length === 1) {
-    let str: string = typeof message === 'string' ? message : ''
+    if (typeof message !== 'string')
+      return ''
 
-    if (params) {
-      str = str.replace(/{(\w*)}/g, (_, paramName) => {
-        if (!(paramName in params))
+    if (!params)
+      return message
+
+    return message.replace(/{(\w*)}/g, (_, paramName) => {
+      if (!(paramName in params))
+        throw new Error(`Parameter "${paramName}" not found`)
+
+      if (Array.isArray(params)) {
+        if (Number.isNaN(Number(paramName)))
           throw new Error(`Parameter "${paramName}" not found`)
 
-        if (Array.isArray(params)) {
-          if (Number.isNaN(Number(paramName)))
-            throw new Error(`Parameter "${paramName}" not found`)
-
-          return String(params[paramName])
-        }
-
         return String(params[paramName])
-      })
-    }
+      }
 
-    return str
+      return String(params[paramName])
+    })
   }
 
   return getLocalizedMessage({
     chain: chain.slice(1),
-    // @ts-expect-error: We know that message is an object here
-    messages: message,
+    messages: message as LocaleMessage<Message>,
     params,
     initialChain,
   })

@@ -18,7 +18,7 @@ export function createI18n(
   const locale = ref(defaultLocale)
   const locales = config.locales ?? (Object.keys(messages).length ? Object.keys(messages) : [locale.value])
 
-  const t = <const T>(key: T, params?: Record<string, any>) => {
+  const t = <const T>(key: T, params?: (string | number)[] | Record<string, string | number>) => {
     if (typeof key !== 'string') {
       if (logLevel === 'warn')
         console.warn(CONSOLE_PREFIX, `Message "${key}" must be a string`)
