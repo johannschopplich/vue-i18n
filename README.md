@@ -255,14 +255,17 @@ console.log(t('foo').value) // `bar`
 **Type Declaration**
 
 ```ts
-function useI18n(): UseI18n
+function useI18n<const Locale extends string = string>(): I18nInstance<Locale>
 
-interface UseI18n<Locale extends string = string> {
+interface I18nInstance<
+  Locale extends string = string,
+  Messages extends Record<string, any> = Record<string, any>,
+> {
   defaultLocale: Locale
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
-  messages: LocaleMessages<Locale>
-  t: (key: string, params?: unknown[] | Record<string, unknown>) => string
+  messages: LocaleMessages<Locale, Messages>
+  t: <const T>(key: T, params?: (string | number)[] | Record<string, string | number>) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }
