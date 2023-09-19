@@ -26,6 +26,10 @@ export type LocaleMessages<
   Messages extends Record<string, any> = LocaleMessage,
 > = Record<Locale, Messages>
 
+export type TranslationParameters =
+  | Record<string, string | number | null | undefined>
+  | (string | number | null | undefined)[]
+
 export interface I18nConfig<Locale extends string = string> {
   defaultLocale?: Locale
   locales?: Locale[]
@@ -42,7 +46,7 @@ export interface I18nInstance<
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale, Messages>
-  t: <const T>(key: T, params?: (string | number)[] | Record<string, string | number>) => string
+  t: <const T>(key: T, params?: TranslationParameters) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }
