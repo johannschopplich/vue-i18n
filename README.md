@@ -265,7 +265,7 @@ interface I18nInstance<
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale, Messages>
-  t: <const T>(key: T, params?: TranslationParameters) => string
+  t: <const T>(key: T, params?: MessageParameters) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }

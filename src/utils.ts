@@ -1,5 +1,5 @@
 import { hash } from 'ohash'
-import type { LocaleMessage, TranslationParameters } from './types'
+import type { LocaleMessage, MessageParameters } from './types'
 
 const cache = new Map<string, string>()
 
@@ -27,7 +27,7 @@ export function getLocalizedMessage<Message = string>(
   }: {
     chain: string[]
     messages: LocaleMessage<Message>
-    params?: TranslationParameters
+    params?: MessageParameters
     initialChain?: string[]
   },
 ): string {

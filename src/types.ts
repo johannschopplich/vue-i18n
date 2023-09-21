@@ -26,7 +26,7 @@ export type LocaleMessages<
   Messages extends Record<string, any> = LocaleMessage,
 > = Record<Locale, Messages>
 
-export type TranslationParameters =
+export type MessageParameters =
   | Record<string, string | number | null | undefined>
   | (string | number | null | undefined)[]
 
@@ -46,7 +46,7 @@ export interface I18nInstance<
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale, Messages>
-  t: <const T>(key: T, params?: TranslationParameters) => string
+  t: <const T>(key: T, params?: MessageParameters) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }

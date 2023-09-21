@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import type { App, InjectionKey } from 'vue'
 import { getCachedLocalizedMessage } from './utils'
-import type { I18nConfig, I18nInstance, TranslationParameters } from './types'
+import type { I18nConfig, I18nInstance, MessageParameters } from './types'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
 
@@ -18,7 +18,7 @@ export function createI18n(
   const locale = ref(defaultLocale)
   const locales = config.locales ?? (Object.keys(messages).length ? Object.keys(messages) : [locale.value])
 
-  const t = <const T>(key: T, params?: TranslationParameters) => {
+  const t = <const T>(key: T, params?: MessageParameters) => {
     if (typeof key !== 'string') {
       if (logLevel === 'warn')
         console.warn(CONSOLE_PREFIX, `Message "${key}" must be a string`)
