@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { getLocalizedMessage } from '../src/utils'
 
-describe('Recursive retrieve messages', () => {
+describe('recursive retrieve messages', () => {
   const messages = {
     en: {
       intro: 'Hello World',
