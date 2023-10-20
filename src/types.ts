@@ -40,7 +40,7 @@ export interface I18nConfig<Locale extends string = string> {
 
 export interface I18nInstance<
   Locale extends string = string,
-  Messages extends Record<string, unknown> = LocaleMessage,
+  Messages extends Record<string, unknown> = Record<string, unknown>,
 > {
   defaultLocale: Locale
   locale: ComputedRef<Locale>

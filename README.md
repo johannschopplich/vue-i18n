@@ -260,13 +260,13 @@ console.log(t('foo')) // `bar`
 
 ```ts
 function useI18n<
-  const Locale extends string = string,
-  Messages extends Record<string, unknown> = LocaleMessage
+  Locale extends string = string,
+  Messages extends Record<string, unknown> = Record<string, unknown>
 >(): I18nInstance<Locale>
 
 interface I18nInstance<
   Locale extends string = string,
-  Messages extends Record<string, unknown> = LocaleMessage
+  Messages extends Record<string, unknown> = Record<string, unknown>
 > {
   defaultLocale: Locale
   locale: ComputedRef<Locale>
