@@ -11,7 +11,7 @@ Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.
 - 🗜 [`useI18n`](#usei18n) composable
 - 🔃 Lazily add translations at runtime
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
-- 🦾 [Strongly typed locales](#narrow-locale-types)
+- 🦾 [Strongly typed locales](#strict-locale-and-messages-types) and messages
 - 🌬️ Zero dependencies
 
 ## Setup
@@ -80,16 +80,19 @@ locale.value // `de`
 t('intro', { name: 'World' }) // `Willkommen, World`
 ```
 
-## Narrow Locale Types
+## Strict Locale and Messages Types
 
-Typed locales will help you to avoid typos and make your code more robust. To narrow the type of your locales, you can create a `Locale` type and pass it to the `useI18n` composable.
+Typed locales and messages will help you to avoid typos and make your code more robust. To narrow the type of your locales, you can create a `Locale` type and pass it to the `useI18n` composable.
 
 Properties like `locale`, `locales` and `messages` will be typed accordingly.
 
 ```ts
+import type enMessages from './locales/en.json'
+
+type Messages = typeof enMessages
 type Locale = 'en' | 'de'
 
-const { locale, messages } = useI18n<Locale>()
+const { locale, messages } = useI18n<Locale, Messages>()
 
 messages.fr = { // The property "fr" is not assignable to type "LocaleMessages<Locale>".
   // ...
@@ -105,8 +108,8 @@ messages.fr = { // The property "fr" is not assignable to type "LocaleMessages<L
 ```ts
 const messages = {
   en: {
-    intro: 'Hello World',
-  },
+    intro: 'Hello World'
+  }
 }
 ```
 
@@ -157,8 +160,8 @@ const messages = {
 ```ts
 const messages = {
   en: {
-    intro: '{0} World',
-  },
+    intro: '{0} World'
+  }
 }
 ```
 
@@ -200,18 +203,19 @@ To automatically load translations, you can use [the glob import from Vite](http
 
 ```ts
 import { createI18n } from '@byjohann/vue-i18n'
+import type { LocaleMessages } from '@byjohann/vue-i18n'
 
 // Auto-load translations
 const messages = Object.fromEntries(
   Object.entries(
-    import.meta.glob<Record<string, any>>('./locales/*.json', { eager: true }),
-  ).map(([key, value]) => [key.slice(10, -5), value]),
+    import.meta.glob<LocaleMessages>('./locales/*.json', { eager: true })
+  ).map(([key, value]) => [key.slice(10, -5), value])
 )
 
 const i18n = createI18n({
   defaultLocale: 'en',
   locales: Object.keys(messages),
-  messages,
+  messages
 })
 
 export { i18n }
@@ -249,17 +253,20 @@ const {
 } = useI18n()
 
 console.log(locales) // `['en', 'de']`
-console.log(t('foo').value) // `bar`
+console.log(t('foo')) // `bar`
 ```
 
 **Type Declaration**
 
 ```ts
-function useI18n<const Locale extends string = string>(): I18nInstance<Locale>
+function useI18n<
+  const Locale extends string = string,
+  Messages extends Record<string, unknown> = LocaleMessage
+>(): I18nInstance<Locale>
 
 interface I18nInstance<
   Locale extends string = string,
-  Messages extends Record<string, any> = Record<string, any>,
+  Messages extends Record<string, unknown> = LocaleMessage
 > {
   defaultLocale: Locale
   locale: ComputedRef<Locale>

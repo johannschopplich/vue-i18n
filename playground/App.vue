@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useI18n } from '@byjohann/vue-i18n'
+import type deMessages from './locales/de.json'
 
+type Messages = typeof deMessages
 type Locale = 'en' | 'de' | 'fr'
 
-const { locale, setLocale, messages, t } = useI18n<Locale>()
+const { locale, setLocale, messages, t } = useI18n<Locale, Messages>()
 
 // Add custom messages at runtime
 messages.fr = {
@@ -25,7 +27,7 @@ function switchLocale() {
 
 <template>
   <header>
-    <h1>vue-i18n</h1>
+    <h1>@byjohann/vue-i18n</h1>
     <p>
       Current locale: <mark>{{ locale }}</mark>
     </p>
@@ -45,7 +47,7 @@ function switchLocale() {
     <!-- Object -->
     <p>{{ t("object.foo") }}</p>
     <!-- Parse -->
-    <p>{{ t("parse", { name: "vue-i18n" }) }}</p>
-    <p>{{ t("parses.foo", { name: "vue-i18n" }) }}</p>
+    <p>{{ t("parse", { name: "@byjohann/vue-i18n" }) }}</p>
+    <p>{{ t("parses.foo", { name: "@byjohann/vue-i18n" }) }}</p>
   </main>
 </template>

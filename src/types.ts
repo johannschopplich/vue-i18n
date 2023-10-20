@@ -13,7 +13,7 @@ export declare type LocaleMessageType<T, Message = string> = T extends string
       : T
 
 export type LocaleMessageDictionary<T, Message = string> = {
-  [K in keyof T]: LocaleMessageType<T[K], Message>;
+  [K in keyof T]: LocaleMessageType<T[K], Message>
 }
 
 export type LocaleMessage<Message = string> = Record<
@@ -22,8 +22,8 @@ export type LocaleMessage<Message = string> = Record<
 >
 
 export type LocaleMessages<
-  Locale extends string,
-  Messages extends Record<string, any> = LocaleMessage,
+  Locale extends string = string,
+  Messages extends Record<string, unknown> = LocaleMessage,
 > = Record<Locale, Messages>
 
 export type MessageParameters =
@@ -40,7 +40,7 @@ export interface I18nConfig<Locale extends string = string> {
 
 export interface I18nInstance<
   Locale extends string = string,
-  Messages extends Record<string, any> = Record<string, any>,
+  Messages extends Record<string, unknown> = LocaleMessage,
 > {
   defaultLocale: Locale
   locale: ComputedRef<Locale>
