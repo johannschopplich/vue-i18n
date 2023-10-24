@@ -26,11 +26,11 @@ export type LocaleMessages<
   Messages extends Record<string, unknown> = LocaleMessage,
 > = Record<Locale, Messages>
 
-export type MessageParameter = string | number | null | undefined
+export type MessageParameterValue = string | number | null | undefined
 
 export type MessageParameters =
-  | Record<string, MessageParameter>
-  | MessageParameter[]
+  | Record<string, MessageParameterValue>
+  | MessageParameterValue[]
 
 export interface I18nConfig<Locale extends string = string> {
   defaultLocale?: Locale
