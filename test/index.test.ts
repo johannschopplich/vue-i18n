@@ -6,7 +6,7 @@ describe('recursive retrieve messages', () => {
     en: {
       intro: 'Hello World',
       named: '{msg} World',
-      list: '{0} World',
+      indexed: '{0} World',
       arrayWithValues: [
         'Array Item 1',
         'Array Item 2',
@@ -31,18 +31,18 @@ describe('recursive retrieve messages', () => {
     expect(result).toBe('My World')
   })
 
-  it('should support list formatting with an array', () => {
+  it('should support indexed formatting with an array', () => {
     const result = getLocalizedMessage({
-      chain: ['en', 'list'],
+      chain: ['en', 'indexed'],
       messages,
       params: ['My'],
     })
     expect(result).toBe('My World')
   })
 
-  it('should support list formatting with array-like objects', () => {
+  it('should support indexed formatting with array-like objects', () => {
     const result = getLocalizedMessage({
-      chain: ['en', 'list'],
+      chain: ['en', 'indexed'],
       messages,
       params: { 0: 'My' },
     })
@@ -109,7 +109,7 @@ describe('recursive retrieve messages', () => {
     expect(result).toBe('Deeply Nested')
   })
 
-  it('should support a mix of named and list formatting', () => {
+  it('should support a mix of named and indexed formatting', () => {
     const mixedMessages = {
       en: {
         mixed: '{0} {1}, {name}',
