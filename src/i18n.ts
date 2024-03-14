@@ -9,7 +9,7 @@ export const injectionKey = Symbol('@byjohann/vue-i18n') as InjectionKey<I18nIns
 
 export function createI18n(
   config: I18nConfig,
-): I18nInstance & { install(app: App): void } {
+): I18nInstance & { install: (app: App) => void } {
   const {
     defaultLocale = 'en',
     logLevel = 'warn',
