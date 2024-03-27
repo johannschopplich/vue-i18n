@@ -3,7 +3,7 @@
     "target": "ESNext",
     "jsx": "preserve",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "module": "Preserve",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
       "@byjohann/vue-i18n": ["./src/index.ts"]
