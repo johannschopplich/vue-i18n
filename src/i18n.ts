@@ -53,7 +53,7 @@ export function createI18n(
       if (logLevel === 'warn') {
         console.warn(
           CONSOLE_PREFIX,
-        `Locale "${newLocale}" is not defined in the locales list. Available locales: ${locales.join(', ')}`,
+          `Locale "${newLocale}" is not defined in the locales list. Available locales: ${locales.join(', ')}`,
         )
       }
       return
