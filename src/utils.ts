@@ -34,7 +34,7 @@ export function getLocalizedMessage<Message = string>(
   const key = chain[0]
 
   // Initialize the original key's chain
-  initialChain ||= [...chain]
+  initialChain ??= [...chain]
 
   // Handle array indices
   if (key.includes('[')) {
@@ -75,7 +75,7 @@ export function getLocalizedMessage<Message = string>(
     if (!params)
       return message
 
-    return message.replace(/{(\w*)}/g, (_, paramName) => {
+    return message.replace(/\{(\w*)\}/g, (_, paramName) => {
       if (!(paramName in params))
         throw new Error(`Parameter "${paramName}" not found`)
 
