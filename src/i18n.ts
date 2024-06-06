@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import type { App, InjectionKey } from 'vue'
-import { getCachedLocalizedMessage } from './utils'
+import { getLocalizedMessage } from './utils'
 import type { I18nConfig, I18nInstance, MessageParameters } from './types'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
@@ -32,14 +32,11 @@ export function createI18n(
     }
 
     try {
-      return getCachedLocalizedMessage(
-        locale.value,
-        {
-          chain: key.split('.'),
-          messages: messages[locale.value],
-          params,
-        },
-      )
+      return getLocalizedMessage({
+        chain: key.split('.'),
+        messages: messages[locale.value],
+        params,
+      })
     }
     catch (error) {
       if (logLevel === 'warn')

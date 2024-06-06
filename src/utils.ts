@@ -1,22 +1,4 @@
-import { hash } from 'ohash'
 import type { LocaleMessage, MessageParameters } from './types'
-
-const cache = new Map<string, string>()
-
-export function getCachedLocalizedMessage(
-  locale: string,
-  options: Parameters<typeof getLocalizedMessage>[0],
-) {
-  const key = hash([locale, options.chain, options.params])
-
-  if (cache.has(key))
-    return cache.get(key)!
-
-  const message = getLocalizedMessage(options)
-  cache.set(key, message)
-
-  return message
-}
 
 export function getLocalizedMessage<Message = string>(
   {
