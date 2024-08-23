@@ -1,7 +1,5 @@
 # @byjohann/vue-i18n
 
-[![npm version](https://img.shields.io/npm/v/@byjohann/vue-i18n?color=a1b858&label=)](https://www.npmjs.com/package/@byjohann/vue-i18n)
-
 Lightweight internationalization plugin for Vue.
 
 Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.dev) seems to be the de-facto standard? Well, I was looking for a lightweight solution that solely covers the most basic use cases. I also wanted to learn, what a minimalistic i18n library would look like. So I built it.
