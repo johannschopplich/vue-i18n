@@ -1,7 +1,7 @@
-import { computed, ref } from 'vue'
 import type { App, InjectionKey } from 'vue'
-import { getLocalizedMessage } from './utils'
 import type { I18nConfig, I18nInstance, MessageParameters } from './types'
+import { computed, ref } from 'vue'
+import { getLocalizedMessage } from './utils'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
 
@@ -14,7 +14,7 @@ export function createI18n(
     defaultLocale = 'en',
     logLevel = 'warn',
   } = config
-  const messages = { ...config.messages } ?? {}
+  const messages = { ...config.messages ?? {} }
   const locale = ref(defaultLocale)
   const locales = config.locales ?? (Object.keys(messages).length ? Object.keys(messages) : [locale.value])
 

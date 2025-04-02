@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from '@byjohann/vue-i18n'
 import type deMessages from './locales/de.json'
+import { useI18n } from '@byjohann/vue-i18n'
 
 type Messages = typeof deMessages
 type Locale = 'en' | 'de' | 'fr'

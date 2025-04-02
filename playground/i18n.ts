@@ -1,5 +1,5 @@
-import { createI18n } from '@byjohann/vue-i18n'
 import type { LocaleMessages } from '@byjohann/vue-i18n'
+import { createI18n } from '@byjohann/vue-i18n'
 
 // Auto-load translations
 const messages = Object.fromEntries(

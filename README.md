@@ -201,8 +201,8 @@ List formatting also accepts array-like objects:
 To automatically load translations, you can use [the glob import from Vite](https://vitejs.dev/guide/features.html#glob-import) to load all translation files from a directory.
 
 ```ts
-import { createI18n } from '@byjohann/vue-i18n'
 import type { LocaleMessages } from '@byjohann/vue-i18n'
+import { createI18n } from '@byjohann/vue-i18n'
 
 // Auto-load translations
 const messages = Object.fromEntries(

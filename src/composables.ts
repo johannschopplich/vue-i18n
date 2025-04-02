@@ -1,6 +1,6 @@
+import type { I18nInstance } from './types'
 import { inject } from 'vue'
 import { injectionKey } from './i18n'
-import type { I18nInstance } from './types'
 
 export function useI18n<
   Locale extends string = string,
