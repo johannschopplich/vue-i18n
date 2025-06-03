@@ -34,7 +34,7 @@ export function createI18n(
     try {
       return getLocalizedMessage({
         chain: key.split('.'),
-        messages: messages[locale.value],
+        messages: messages[locale.value]!,
         params,
       })
     }

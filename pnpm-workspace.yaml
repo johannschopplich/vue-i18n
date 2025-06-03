@@ -2,3 +2,4 @@ packages:
   - playground
 onlyBuiltDependencies:
   - esbuild
+  - unrs-resolver

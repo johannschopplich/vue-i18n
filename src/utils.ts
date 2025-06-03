@@ -13,7 +13,7 @@ export function getLocalizedMessage<Message = string>(
     initialChain?: string[]
   },
 ): string {
-  const key = chain[0]
+  const key = chain[0]!
 
   // Initialize the original key's chain
   initialChain ??= [...chain]
@@ -21,12 +21,12 @@ export function getLocalizedMessage<Message = string>(
   // Handle array indices
   if (key.includes('[')) {
     const [messageKey, rest] = key.split('[')
-    const index = Number.parseInt(rest.replace(']', ''), 10)
+    const index = Number.parseInt(rest!.replace(']', ''), 10)
 
     if (index < 0)
       throw new Error(`Invalid array index "${index}" for message "${initialChain.join('.')}"`)
 
-    const record = messages[messageKey]
+    const record = messages[messageKey!]
 
     if (!Array.isArray(record) || record.length <= index)
       throw new Error(`Message "${initialChain.join('.')}" not found`)
