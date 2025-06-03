@@ -5,7 +5,7 @@ import { getLocalizedMessage } from './utils'
 
 const CONSOLE_PREFIX = '[vue-i18n]'
 
-export const injectionKey = Symbol('@byjohann/vue-i18n') as InjectionKey<I18nInstance>
+export const injectionKey = Symbol.for('@byjohann/vue-i18n') as InjectionKey<I18nInstance>
 
 export function createI18n(
   config: I18nConfig,
