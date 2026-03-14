@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { getLocalizedMessage } from '../src/utils'
 
-describe('recursive retrieve messages', () => {
+describe('getLocalizedMessage', () => {
   const messages = {
     en: {
       intro: 'Hello World',
@@ -77,7 +77,7 @@ describe('recursive retrieve messages', () => {
     expect(() => getLocalizedMessage({
       chain: ['en', 'nonexistent'],
       messages,
-    })).toThrowError(
+    })).toThrow(
       'Message "en.nonexistent" not found',
     )
   })
@@ -87,7 +87,7 @@ describe('recursive retrieve messages', () => {
       chain: ['en', 'named'],
       messages,
       params: { notFound: 'value' },
-    })).toThrowError(
+    })).toThrow(
       'Parameter "msg" not found',
     )
   })
@@ -127,8 +127,8 @@ describe('recursive retrieve messages', () => {
     expect(() => getLocalizedMessage({
       chain: ['en', 'arrayWithValues[-1]'],
       messages,
-    })).toThrowError(
-      'Invalid array index "-1" for message "en.arrayWithValues[-1]"',
+    })).toThrow(
+      'Invalid array access syntax in "en.arrayWithValues[-1]"',
     )
   })
 
@@ -136,8 +136,37 @@ describe('recursive retrieve messages', () => {
     expect(() => getLocalizedMessage({
       chain: ['en', 'missingArray[0]'],
       messages,
-    })).toThrowError(
+    })).toThrow(
       'Message "en.missingArray[0]" not found',
+    )
+  })
+
+  it('should pass through empty braces as literal text', () => {
+    const emptyBraceMessages = {
+      en: {
+        greeting: 'Hello {} World',
+      },
+    }
+    const result = getLocalizedMessage({
+      chain: ['en', 'greeting'],
+      messages: emptyBraceMessages,
+      params: { name: 'Test' },
+    })
+    expect(result).toBe('Hello {} World')
+  })
+
+  it('should throw for an out-of-bounds array parameter index', () => {
+    const indexedMessages = {
+      en: {
+        greeting: '{0} {1}',
+      },
+    }
+    expect(() => getLocalizedMessage({
+      chain: ['en', 'greeting'],
+      messages: indexedMessages,
+      params: ['Hello'],
+    })).toThrow(
+      'Parameter index 1 is out of bounds (array length: 1)',
     )
   })
 })
