@@ -1,8 +1,8 @@
-import type { UserConfig, UserConfigFn } from 'tsdown/config'
+import type { UserConfig } from 'tsdown/config'
 import { defineConfig } from 'tsdown/config'
 
-const config: UserConfig | UserConfigFn = defineConfig({
-  entry: ['src/index.ts'],
+const config: UserConfig = defineConfig({
+  entry: 'src/index.ts',
   dts: true,
 })
 
