@@ -1,14 +1,14 @@
 import type { ComputedRef } from 'vue'
 
-export type LocaleMessageValue<Message = string> =
-  | LocaleMessageDictionary<any, Message>
-  | string
+export type LocaleMessageValue<Message = string>
+  = | LocaleMessageDictionary<any, Message>
+    | string
 
 export declare type LocaleMessageType<T, Message = string> = T extends string
   ? string
   : T extends Record<string, unknown>
     ? LocaleMessageDictionary<T, Message>
-    : T extends Array<T>
+    : T extends readonly unknown[]
       ? { [K in keyof T]: T[K] }
       : T
 
@@ -28,9 +28,9 @@ export type LocaleMessages<
 
 export type MessageParameterValue = string | number | null | undefined
 
-export type MessageParameters =
-  | Record<string, MessageParameterValue>
-  | MessageParameterValue[]
+export type MessageParameters
+  = | Record<string, MessageParameterValue>
+    | MessageParameterValue[]
 
 export interface I18nConfig<Locale extends string = string> {
   defaultLocale?: Locale
@@ -48,7 +48,7 @@ export interface I18nInstance<
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale, Messages>
-  t: <const T>(key: T, params?: MessageParameters) => string
+  t: <const T extends string>(key: T, params?: MessageParameters) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }

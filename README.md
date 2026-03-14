@@ -52,7 +52,7 @@ const i18n = createI18n({
 export default i18n
 ```
 
-Inside your app's entry point, import the `i18n` instance and add it you Vue:
+Inside your app's entry point, import the `i18n` instance and add it to Vue:
 
 ```ts
 // main.ts
@@ -234,7 +234,7 @@ Example:
 
 ### `useI18n`
 
-To access the current i18n instance, you can import the `useI18n` composable from `@byjohann/vue-i18n`. The `useI18n` composable is available your `<script setup>` blocks or the `setup` function of your components.
+To access the current i18n instance, you can import the `useI18n` composable from `@byjohann/vue-i18n`. The `useI18n` composable is available in your `<script setup>` blocks or the `setup` function of your components.
 
 **Example**
 
@@ -261,7 +261,7 @@ console.log(t('foo')) // `bar`
 function useI18n<
   Locale extends string = string,
   Messages extends Record<string, unknown> = Record<string, unknown>
->(): I18nInstance<Locale>
+>(): I18nInstance<Locale, Messages>
 
 interface I18nInstance<
   Locale extends string = string,
@@ -271,7 +271,7 @@ interface I18nInstance<
   locale: ComputedRef<Locale>
   locales: readonly Locale[]
   messages: LocaleMessages<Locale, Messages>
-  t: <const T>(key: T, params?: MessageParameters) => string
+  t: <const T extends string>(key: T, params?: MessageParameters) => string
   setLocale: (locale: Locale) => void
   getLocale: () => string
 }
@@ -287,7 +287,5 @@ interface I18nInstance<
 ## License
 
 [MIT](./LICENSE) License © 2022-PRESENT [Johann Schopplich](https://github.com/johannschopplich)
-
-[MIT](./LICENSE) License © 2022-2023 [LeanERA GmbH](https://github.com/leanera)
 
 [MIT](./LICENSE) License © 2020 [webkong](https://github.com/webkong)

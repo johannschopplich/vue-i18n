@@ -18,7 +18,7 @@ export function createI18n(
   const locale = ref(defaultLocale)
   const locales = config.locales ?? (Object.keys(messages).length ? Object.keys(messages) : [locale.value])
 
-  const t = <const T>(key: T, params?: MessageParameters) => {
+  const t = (key: string, params?: MessageParameters) => {
     if (typeof key !== 'string') {
       if (logLevel === 'warn')
         console.warn(CONSOLE_PREFIX, `Message "${key}" must be a string`)
@@ -31,10 +31,17 @@ export function createI18n(
       return ''
     }
 
+    const localeMessages = messages[locale.value]
+    if (!localeMessages) {
+      if (logLevel === 'warn')
+        console.warn(CONSOLE_PREFIX, `No messages found for locale "${locale.value}"`)
+      return key
+    }
+
     try {
       return getLocalizedMessage({
         chain: key.split('.'),
-        messages: messages[locale.value]!,
+        messages: localeMessages,
         params,
       })
     }

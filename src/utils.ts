@@ -1,5 +1,8 @@
 import type { LocaleMessage, MessageParameters } from './types'
 
+const ARRAY_ACCESS_RE = /^(\w+)\[(\d+)\]$/
+const PARAM_PLACEHOLDER_RE = /\{(\w+)\}/g
+
 export function getLocalizedMessage<Message = string>(
   {
     chain,
@@ -20,11 +23,11 @@ export function getLocalizedMessage<Message = string>(
 
   // Handle array indices
   if (key.includes('[')) {
-    const [messageKey, rest] = key.split('[')
-    const index = Number.parseInt(rest!.replace(']', ''), 10)
-
-    if (index < 0)
-      throw new Error(`Invalid array index "${index}" for message "${initialChain.join('.')}"`)
+    const match = key.match(ARRAY_ACCESS_RE)
+    if (!match)
+      throw new Error(`Invalid array access syntax in "${initialChain.join('.')}"`)
+    const messageKey = match[1]
+    const index = Number.parseInt(match[2]!, 10)
 
     const record = messages[messageKey!]
 
@@ -57,16 +60,18 @@ export function getLocalizedMessage<Message = string>(
     if (!params)
       return message
 
-    return message.replace(/\{(\w*)\}/g, (_, paramName) => {
+    return message.replace(PARAM_PLACEHOLDER_RE, (_, paramName) => {
+      if (Array.isArray(params)) {
+        const paramIndex = Number(paramName)
+        if (Number.isNaN(paramIndex))
+          throw new Error(`Parameter "${paramName}" not found`)
+        if (paramIndex < 0 || paramIndex >= params.length)
+          throw new Error(`Parameter index ${paramIndex} is out of bounds (array length: ${params.length})`)
+        return String(params[paramIndex])
+      }
+
       if (!(paramName in params))
         throw new Error(`Parameter "${paramName}" not found`)
-
-      if (Array.isArray(params)) {
-        if (Number.isNaN(Number(paramName)))
-          throw new Error(`Parameter "${paramName}" not found`)
-
-        return String(params[paramName])
-      }
 
       return String(params[paramName])
     })
