@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "jsx": "preserve",
     "moduleDetection": "force",
-    "rootDir": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
-    "strict": true,
     "noUncheckedIndexedAccess": true,
     "declaration": true,
     "noEmit": true,
