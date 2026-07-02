@@ -10,6 +10,7 @@ Why bother creating another i18n library if [Vue I18n](https://vue-i18n.intlify.
 - 🔃 Lazily add translations at runtime
 - 📯 Global properties [`$t`](#t--i18n) and [`$i18n`](#t--i18n) accessible in templates
 - 🦾 [Strongly typed locales](#strict-locale-and-messages-types) and messages
+- 🪆 [Nested messages](#nested-keys) with dot notation and array index access
 - 🌬️ Zero dependencies
 
 ## Setup
@@ -52,6 +53,8 @@ const i18n = createI18n({
 export default i18n
 ```
 
+`locales` can be omitted – it is inferred from the `messages` keys. Set `logLevel: 'silent'` to suppress console warnings, e.g. for missing keys.
+
 Inside your app's entry point, import the `i18n` instance and add it to Vue:
 
 ```ts
@@ -93,7 +96,7 @@ type Locale = 'en' | 'de'
 
 const { locale, messages } = useI18n<Locale, Messages>()
 
-messages.fr = { // The property "fr" is not assignable to type "LocaleMessages<Locale>".
+messages.fr = { // The property "fr" is not assignable to type "LocaleMessages<Locale, Messages>".
   // ...
 }
 ```
@@ -195,6 +198,22 @@ List formatting also accepts array-like objects:
 ```
 
 </td></tr></table>
+
+### Nested Keys
+
+Messages can be nested arbitrarily deep. Access them with dot notation – array indices work as well:
+
+```ts
+const messages = {
+  en: {
+    nav: { home: 'Home' },
+    items: ['First', 'Second'],
+  },
+}
+
+t('nav.home') // `Home`
+t('items[1]') // `Second`
+```
 
 ### Auto-Load Translations
 
