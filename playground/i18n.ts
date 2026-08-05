@@ -1,7 +1,7 @@
 import type { LocaleMessages } from '@byjohann/vue-i18n'
 import { createI18n } from '@byjohann/vue-i18n'
 
-// Auto-load translations
+// Auto-load translations.
 const messages = Object.fromEntries(
   Object.entries(
     import.meta.glob<LocaleMessages>('./locales/*.json', { eager: true }),

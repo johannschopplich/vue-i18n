@@ -18,10 +18,10 @@ export function getLocalizedMessage<Message = string>(
 ): string {
   const key = chain[0]!
 
-  // Initialize the original key's chain
+  // Initialize the original key's chain.
   initialChain ??= [...chain]
 
-  // Handle array indices
+  // Handle array indices.
   if (key.includes('[')) {
     const match = key.match(ARRAY_ACCESS_RE)
     if (!match)
@@ -47,7 +47,7 @@ export function getLocalizedMessage<Message = string>(
     })
   }
 
-  // Handle object keys
+  // Handle object keys.
   const message = messages[key]
 
   if (message == null)

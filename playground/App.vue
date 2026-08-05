@@ -7,7 +7,7 @@ type Locale = 'en' | 'de' | 'fr'
 
 const { locale, setLocale, messages, t } = useI18n<Locale, Messages>()
 
-// Add custom messages at runtime
+// Add custom messages at runtime.
 messages.fr = {
   menu: ['Démarrer'],
   object: {
