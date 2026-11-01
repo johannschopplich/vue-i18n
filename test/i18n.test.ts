@@ -140,7 +140,9 @@ describe('setLocale / getLocale', () => {
 describe('install', () => {
   it('should register $t and $i18n as global properties', () => {
     const i18n = createI18n({
-      messages: { en: { hello: 'Hello' } },
+      messages: {
+        en: { hello: 'Hello' },
+      },
     })
     const app = createApp({ template: '<div />' })
     app.use(i18n)

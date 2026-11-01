@@ -36,8 +36,11 @@ export function getLocalizedMessage<Message = string>(
 
     const message = record[index]
 
-    if (chain.length === 1)
-      return typeof message === 'string' ? message : ''
+    if (chain.length === 1) {
+      return typeof message === 'string'
+        ? message
+        : ''
+    }
 
     return getLocalizedMessage({
       chain: chain.slice(1),
@@ -64,7 +67,7 @@ export function getLocalizedMessage<Message = string>(
       if (Array.isArray(params)) {
         const paramIndex = Number(paramName)
         if (Number.isNaN(paramIndex))
-          throw new Error(`Parameter "${paramName}" not found`)
+          throw new TypeError(`Parameter "${paramName}" not found`)
         if (paramIndex < 0 || paramIndex >= params.length)
           throw new Error(`Parameter index ${paramIndex} is out of bounds (array length: ${params.length})`)
         return String(params[paramIndex])

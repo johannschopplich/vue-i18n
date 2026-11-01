@@ -5,12 +5,18 @@ import { createI18n } from '@byjohann/vue-i18n'
 const messages = Object.fromEntries(
   Object.entries(
     import.meta.glob<LocaleMessages>('./locales/*.json', { eager: true }),
-  ).map(([key, value]) => [key.slice(10, -5), value]),
+  ).map(([key, value]) => [
+    key.slice(10, -5),
+    value,
+  ]),
 )
 
 const i18n = createI18n({
   defaultLocale: 'de',
-  locales: [...Object.keys(messages), 'fr'],
+  locales: [
+    ...Object.keys(messages),
+    'fr',
+  ],
   messages,
 })
 

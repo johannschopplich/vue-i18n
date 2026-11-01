@@ -21,7 +21,9 @@ messages.fr = {
 }
 
 function switchLocale() {
-  setLocale(locale.value === 'en' ? 'de' : 'en')
+  setLocale(locale.value === 'en'
+    ? 'de'
+    : 'en')
 }
 </script>
 

@@ -14,9 +14,13 @@ export function createI18n(
     defaultLocale = 'en',
     logLevel = 'warn',
   } = config
-  const messages = { ...config.messages ?? {} }
+  const messages = {
+    ...config.messages ?? {},
+  }
   const locale = ref(defaultLocale)
-  const locales = config.locales ?? (Object.keys(messages).length ? Object.keys(messages) : [locale.value])
+  const locales = config.locales ?? (Object.keys(messages).length
+    ? Object.keys(messages)
+    : [locale.value])
 
   const t = (key: string, params?: MessageParameters) => {
     if (typeof key !== 'string') {

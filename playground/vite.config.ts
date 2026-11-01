@@ -13,7 +13,9 @@ export default defineConfig({
     },
   },
 
-  plugins: [Vue()],
+  plugins: [
+    Vue(),
+  ],
 
   optimizeDeps: {
     exclude: [
